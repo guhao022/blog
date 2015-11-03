@@ -28,7 +28,7 @@ Actor模型广义上讲与CSP模型很相似。但两种模型就提供的原语
 
 Go Channel的基本操作语法如下：
 
-```golang
+```go
 c := make(chan bool) //创建一个无缓冲的bool型Channel 
 c <- x        //向一个Channel发送一个值
 <- c          //从一个Channel中接收一个值
@@ -43,7 +43,7 @@ x, ok = <- c  //从Channel接收一个值，如果channel关闭了或没有数�
 
 等待一个事件，有时候通过close一个Channel就足够了。例如：
 
-```golang
+```go
 //testwaitevent1.go
 package main
 
@@ -82,7 +82,7 @@ Done!
 
 同上，close channel还可以用于协同多个Goroutines，比如下面这个例子，我们创建了100个Worker Goroutine，这些Goroutine在被创建出来后都阻塞在"<-start"上，直到我们在main goroutine中给出开工的信号："close(start)"，这些goroutines才开始真正的并发运行起来。
 
-```golang
+```go
 //testwaitevent2.go
 package main
 
@@ -108,7 +108,7 @@ func main() {
 【select的基本操作】
 select是Go语言特有的操作，使用select我们可以同时在多个channel上进行发送/接收操作。下面是select的基本操作。
 
-```golang
+```go
 select {
 case x := <- somechan:
     // … 使用x进行一些操作
@@ -129,7 +129,7 @@ default:
 
 我们在使用select时很少只是对其进行一次evaluation，我们常常将其与for {}结合在一起使用，并选择适当时机从for{}中退出。
 
-```golang
+```go
 for {
         select {
         case x := <- somechan:
@@ -152,7 +152,7 @@ for {
 
 下面是一个常见的终结sub worker goroutines的方法，每个worker goroutine通过select监视一个die channel来及时获取main goroutine的退出通知。
 
-```golang
+```go
 //testterminateworker1.go
 package main
 
@@ -191,7 +191,7 @@ func main() {
 
 有时候终结一个worker后，main goroutine想确认worker routine是否真正退出了，可采用下面这种方法：
 
-```golang
+```go
 //testterminateworker2.go
 package main
 
@@ -229,7 +229,7 @@ func main() {
 
 下面演示在一个已经关闭了的channel上读写的结果：
 
-```golang
+```go
 //testoperateonclosedchannel.go
 package main
 
@@ -267,7 +267,7 @@ panic: runtime error: send on closed channel
 
 将unbuffered channel换成buffered channel会怎样？我们看下面例子：
 
-```golang
+```go
 //testclosedbufferedchannel.go
 package main
 
@@ -303,7 +303,7 @@ panic: runtime error: send on closed channel
 
 Golang中的range常常和channel并肩作战，它被用来从channel中读取所有值。下面是一个简单的实例：
 
-```golang
+```go
 //testrange.go
 package main
 
@@ -333,7 +333,7 @@ func main() {
 
 ##### 1、例子：唯一的ID服务
 
-```golang
+```go
 //testuniqueid.go
 package main
 
@@ -382,7 +382,7 @@ newUniqueIDService通过一个channel与main goroutine关联，main goroutine无
 
 idle:= make(chan []byte, 5) //用一个带缓冲的channel构造一个简单的队列
 
-```golang
+```go
 select {
 case b = <-idle:  //尝试从idle队列中读取
     …
@@ -396,7 +396,7 @@ default:  //队列空，分配一个新的buffer
 
 idle:= make(chan []byte, 5) //用一个带缓冲的channel构造一个简单的队列
 
-```golang
+```go
 select {
 case idle <- b: //尝试向队列中插入一个buffer
         //…
@@ -411,7 +411,7 @@ default: //队列满？
 
 对一个没有初始化的channel进行读写操作都将发生阻塞，例子如下：
 
-```golang
+```go
 package main
 
 func main() {
@@ -425,7 +425,7 @@ $go run testnilchannel.go
 fatal error: all goroutines are asleep – deadlock!
 ```
 
-```golang
+```go
 package main
 
 func main() {
@@ -434,7 +434,7 @@ func main() {
 }
 ```
 
-```golang
+```go
 $go run testnilchannel.go
 fatal error: all goroutines are asleep – deadlock!
 ```
@@ -443,7 +443,7 @@ fatal error: all goroutines are asleep – deadlock!
 
 看下面这个例子：
 
-```golang
+```go
 //testnilchannel_bad.go
 package main
 
@@ -496,7 +496,7 @@ func main() {
 
 我们利用nil channel来改进这个程序，以实现我们的意图，代码如下：
 
-```golang
+```go
 //testnilchannel.go
 package main
 
@@ -555,7 +555,7 @@ over
 
 带超时机制的select是常规的tip，下面是示例代码，实现30s的超时select：
 
-```golang
+```go
 func worker(start chan bool) {
         timeout := time.After(30 * time.Second)
         for {
@@ -572,7 +572,7 @@ func worker(start chan bool) {
 
 与timeout实现类似，下面是一个简单的心跳select实现：
 
-```golang
+```go
 func worker(start chan bool) {
         heartbeat := time.Tick(30 * time.Second)
         for {

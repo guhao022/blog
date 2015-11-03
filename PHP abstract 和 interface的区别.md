@@ -1,12 +1,10 @@
 ---
-date: 2011-03-06
-layout: post
-title: 你的第一篇博客
+date: 2015-09-06
+title: PHP abstract 和 interface 的区别
 categories:
-- Gor
-- Blog
+- 技术
 tags:
-- Gor
+- php
 ---
 
 1.php 接口类:interface

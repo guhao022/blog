@@ -84,11 +84,36 @@ func (anget *Anget) Run(port string) {
 ```go
 func main() {
     var ang mod.Anget
-    ang.Run("9900")
+
+	commands := os.Args
+	if len(commands) < 3 {
+		help("help")
+		os.Exit(0)
+	}
+
+	switch commands[1] {
+	case "help":
+		fmt.Println(Helptext)
+	case "run":
+		switch commands[2] {
+		case "--help", "-h":
+			help("help")
+			os.Exit(0)
+		default:
+			ang.Server = commands[2]
+		}
+		ang.Run("9900")
+	default:
+		help("help")
+	}
 }
 ```
 
-ok，代理服务器完成，只要把原来的host地址改为代理服务器的host就可以实现代理了
+ok，代理服务器完成，help的内容自己完成吧，或者删除也可以，只要把原来的host地址改为代理服务器的host就可以实现代理了
+
+```bash
+go run main.go run 127.0.0.1:80
+```
 
 
 

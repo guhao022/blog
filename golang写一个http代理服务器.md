@@ -1,6 +1,6 @@
 ---
 date: 2015-10-02
-title: golang写一个http代理服务器.md
+title: golang写一个http代理服务器
 categories: 技术
 tags: golang, 服务器
 ---

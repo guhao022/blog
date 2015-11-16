@@ -1,8 +1,11 @@
 ---
 date: 2015-10-02
 title: golang写一个http代理服务器
-categories: 技术
-tags: golang, 服务器
+categories: 
+- 技术
+tags: 
+- golang
+- 服务器
 ---
 
 一个简单的http代理服务器

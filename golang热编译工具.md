@@ -6,4 +6,6 @@ categories:
 - 技术
 tags:
 - golang
+- 热编译
 ---
+

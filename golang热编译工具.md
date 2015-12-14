@@ -1,5 +1,5 @@
 ---
-date: 2015-10-9
+date: 2015-10-09
 title: golang热编译工具.md
 tags: 新建,模板,小书匠
 categories:

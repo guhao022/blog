@@ -1,6 +1,6 @@
 ---
 date: 2015-10-09
-title: golang热编译工具.md
+title: golang热编译工具
 tags: 新建,模板,小书匠
 categories:
 - 技术
